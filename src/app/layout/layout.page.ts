@@ -48,8 +48,14 @@ export class LayoutPage implements OnInit {
     this.cont.enable(true);
   }
   routing(name: any) {
+    if(name == "logout"){
+      localStorage.clear();
+     this.router.navigate(['logout']);
+    }else{
     this.menu = name.charAt(0).toUpperCase() + name.slice(1);
     this.router.navigate(['layout/' + name]);
+    }
+   
   }
   goBack() {
   this.navCtrl.back();

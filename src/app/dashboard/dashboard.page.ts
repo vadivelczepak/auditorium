@@ -276,7 +276,7 @@ export class DashboardPage implements OnInit {
     //this.messageEvent.emit(object);
   }
   onDateChange(data: any) {
-    localStorage.clear();
+   localStorage.setItem('pageReloadedOnce', '')
     const newValue = data.date;
     var lengthDate = newValue.length - 1;
     var getDate = this.datePipe.transform(newValue, 'yyyy-MM-dd');
@@ -290,7 +290,7 @@ export class DashboardPage implements OnInit {
   }
   addBooking(): void {
     var date = "1991-01-01";
-    localStorage.clear();
+    localStorage.setItem('pageReloadedOnce', '')
     this.router.navigate(['layout/addbooking/' + 0 + '/' + date]);
   }
 generateDaysValue(month:any, year: number): Day[] {

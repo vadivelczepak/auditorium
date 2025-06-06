@@ -1,0 +1,31 @@
+@if(isPinShow){
+<header class="project-header">
+  <h1 class="project-title">Auditorium</h1>
+</header>
+<div class="pin-page">
+  <h1 class="title">Enter Your PIN</h1>
+  <p class="subtitle">Please enter the 4-digit PIN to continue</p>
+
+  <div class="pin-wrapper">
+    @for (digit of pin; track pin;let i = $index) {
+    <input class="pin-input" maxlength="1" inputmode="numeric" pattern="[0-9]*" [(ngModel)]="pin[i]"
+      (input)="onInput($event, i)" (keydown)="onKeyDown($event, i)" #pinBox />
+    }
+  </div>
+
+  <!-- <button class="submit-btn" (click)="submitPin()" [disabled]="pin.join('').length < 4">
+    Submit
+  </button> -->
+</div>
+<footer class="site-footer">
+  <div class="footer-content">
+    <p>© 2025 Your Company. All rights reserved.</p>
+    <nav class="footer-nav">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+}

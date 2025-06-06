@@ -22,6 +22,14 @@
         </ion-item>
       </ion-list>
     </ion-menu-toggle>
+    <ion-menu-toggle>
+      <ion-list>
+        <ion-item (click)="routing('logout')" routerLinkActive="active-link">
+
+          <ion-label>Logout</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-menu-toggle>
   </ion-content>
 </ion-menu>
 <div class="ion-page" id="main-content">
