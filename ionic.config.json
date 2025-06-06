@@ -1,0 +1,13 @@
+{
+  "name": "biometricApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone",
+  "proxy": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://lightslategrey-fish-417601.hostingersite.com/api/index.php/"
+    }
+  ]
+}

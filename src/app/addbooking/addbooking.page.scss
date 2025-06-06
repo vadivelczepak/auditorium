@@ -1,0 +1,65 @@
+ion-spinner {
+    --color: #45a0eb;
+}
+
+.dropdown {
+    border-radius: 4px;
+    background-color: #e9ebf0;
+}
+
+// .btn {
+//     //background-color: #d1daf1;
+// }
+
+.header {
+    height: 30%;
+    background-color: #121313;
+    border: solid 1px #fff;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+.rowHeight{
+    margin-bottom: 22px;
+    margin-top: 22px;
+    height: 30px;
+}
+.fullcontent {
+    padding-bottom: 20px;
+    border-radius: 10px;
+    margin: 3px;
+    margin-top: 5px;
+     margin-bottom: 35px;
+     max-height: 900px;     /* or any fixed height */
+  overflow-y: auto;
+    background-color: rgba(10, 1, 1, 0.4);
+}
+.sticky-title {
+  position: sticky;
+  top: 0;
+  padding: 10px;
+  font-weight: bold;
+  z-index: 10;
+}
+
+ion-grid {
+    margin-top: 2px;
+    color: black;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.back {
+    background-color: grey;
+}
+
+.validateColor {
+    font-weight: bold;
+    font-size: small;
+    padding: 5px;
+    ;
+    border-radius: 3px;
+    background-color: rgb(230, 224, 224);
+    color: red;
+}
+

@@ -1,0 +1,248 @@
+@if(isLoading){
+<div style="text-align: center;margin-top: 60%;">
+  <ion-spinner></ion-spinner>
+</div>
+
+}
+
+@if(!isLoading && !isShowDate){
+<div class="fullcontent" [formGroup]="addbookingForm">
+  <ion-grid class="sticky-title">
+    <ion-row class="header">
+      <ion-col>Booking Details</ion-col>
+
+    </ion-row>
+  </ion-grid>
+  <ion-grid>
+    @if(!isShowDate){
+    <ion-row (click)="selectDate()" class="rowHeight" style="border-radius: 3px; margin: 10px; background-color: white;width: 96%;">
+      <ion-col>
+
+        @if(currentDate == "1991-01-01"){
+        <b (click)="selectDate()">
+          @if(addbookingForm.value["bookingDate"] == ""){
+          Select Booking Date
+          }@else{
+          {{addbookingForm.value["bookingDate"] | date:"yyyy-MM-dd"}}
+          }
+
+        </b>
+        }
+        @else{
+        <b >{{currentDate}}</b>
+        }
+
+      </ion-col>
+    </ion-row>
+    }
+  </ion-grid>
+
+  @if(!isShowDate){
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-input formControlName="name" label="Name" label-placement="floating" fill="solid"></ion-input>
+        @if(isSubmit && addbookingForm.controls["name"].invalid){
+        <span class="validateColor">Name is required</span>
+        }
+      </ion-col>
+      <!-- <ion-col offset="1">
+        <ion-input formControlName="mobile" label="Mobile" label-placement="floating" fill="solid"
+          placeholder="Enter text"></ion-input>
+        @if(isSubmit && addbookingForm.controls["mobile"].invalid){
+        <span class="validateColor">Mobile is required</span>
+        }
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <!-- <ion-col>
+        <ion-input formControlName="name" label="Name" label-placement="floating" fill="solid"
+          placeholder="Enter text"></ion-input>
+        @if(isSubmit && addbookingForm.controls["name"].invalid){
+        <span class="validateColor">Name is required</span>
+        }
+      </ion-col> -->
+      <ion-col>
+        <ion-input formControlName="mobile" label="Mobile" label-placement="floating" fill="solid"></ion-input>
+        @if(isSubmit && addbookingForm.controls["mobile"].invalid){
+        <span class="validateColor">Mobile is required</span>
+        }
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-select class="dropdown" formControlName="slot_type" aria-label="slot" placeholder="Select Slot">
+          <ion-select-option value="1">Slot 1</ion-select-option>
+          <ion-select-option value="2">Slot 2</ion-select-option>
+        </ion-select>
+        @if(isSubmit && addbookingForm.controls["slot_type"].invalid){
+        <span class="validateColor">Slot Type is required</span>
+        }
+      </ion-col>
+      <!-- <ion-col offset="1">
+        <ion-select class="dropdown" aria-label="event" formControlName="event" placeholder="Select Event"
+          (ionChange)="onEventChange($event)">
+          <ion-select-option value="marriage">Marriage</ion-select-option>
+          <ion-select-option value="reception">Reception</ion-select-option>
+          <ion-select-option value="party">Party</ion-select-option>
+        </ion-select>
+        @if(isSubmit && addbookingForm.controls["event"].invalid){
+        <span class="validateColor">Event is required</span>
+        }
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <!-- <ion-col>
+        <ion-select class="dropdown" formControlName="slot_type" aria-label="slot" placeholder="Select Slot">
+          <ion-select-option value="1">Slot 1</ion-select-option>
+          <ion-select-option value="2">Slot 2</ion-select-option>
+        </ion-select>
+        @if(isSubmit && addbookingForm.controls["slot_type"].invalid){
+        <span class="validateColor">Slot Type is required</span>
+        }
+      </ion-col> -->
+      <ion-col>
+        <ion-select class="rowHeight" class="dropdown" aria-label="event" formControlName="event"
+          placeholder="Select Event" (ionChange)="onEventChange($event)">
+          <ion-select-option value="marriage">Marriage</ion-select-option>
+          <ion-select-option value="reception">Reception</ion-select-option>
+          <ion-select-option value="party">Party</ion-select-option>
+        </ion-select>
+        @if(isSubmit && addbookingForm.controls["event"].invalid){
+        <span class="validateColor">Event is required</span>
+        }
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  @if(eventValue == "marriage"){
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-input label="Father" formControlName="father" label-placement="floating" fill="solid"></ion-input>
+      </ion-col>
+      <!-- <ion-col offset="1">
+        <ion-input label="Mother" formControlName="mother" label-placement="floating" fill="solid"
+          placeholder="Enter text"></ion-input>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <!-- <ion-col>
+        <ion-input label="Father" formControlName="father" label-placement="floating" fill="solid"
+          placeholder="Enter text"></ion-input>
+      </ion-col> -->
+      <ion-col>
+        <ion-input label="Mother" formControlName="mother" label-placement="floating" fill="solid"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  }
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-select class="dropdown" aria-label="payment" formControlName="payment" placeholder="Select Payment">
+          <ion-select-option value="advance">Advance</ion-select-option>
+          <ion-select-option value="settled">Settled</ion-select-option>
+        </ion-select>
+      </ion-col>
+      <!-- <ion-col offset="1">
+        <ion-input formControlName="amount" label="Amount" label-placement="floating" fill="solid"
+          placeholder="Enter text"></ion-input>
+      </ion-col> -->
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <!-- <ion-col>
+        <ion-select class="dropdown" aria-label="payment" formControlName="payment" placeholder="Select Payment">
+          <ion-select-option value="advance">Advance</ion-select-option>
+          <ion-select-option value="settled">Settled</ion-select-option>
+        </ion-select>
+      </ion-col> -->
+      <ion-col>
+        <ion-input formControlName="amount" label="Amount" label-placement="floating" fill="solid"></ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-select class="dropdown" formControlName="status" aria-label="slot" placeholder="Select Status">
+          <ion-select-option value="active">Active</ion-select-option>
+          <ion-select-option value="completed">Completed</ion-select-option>
+          <ion-select-option value="closed">Closed</ion-select-option>
+        </ion-select>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-input formControlName="address" label="Address" label-placement="floating" fill="solid"></ion-input>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row class="rowHeight">
+      <ion-col>
+        <ion-checkbox formControlName="check_box" labelPlacement="end">Check</ion-checkbox>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid style="background-color: white;">
+    <ion-row>
+      <ion-col >
+        <ion-button color="danger" (click)="goBack()" >Back</ion-button>
+      </ion-col>
+      <ion-col >
+        <ion-button (click)="saveBooking()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  }
+
+
+</div>
+}
+
+@if(isShowDate){
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item style="height: 500px;">
+    <ion-datetime presentation="date" (ionChange)="onDateChange($event)"></ion-datetime>
+  </ion-item>
+</ion-content>
+}

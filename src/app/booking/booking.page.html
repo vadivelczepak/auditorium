@@ -1,0 +1,27 @@
+
+
+<ion-searchbar [ngModel]="searchValue" (keyup)="search($event)"></ion-searchbar>
+<ion-content>
+   
+        @for (item of items; track item; let index = $index) {
+       
+            <ion-grid>
+                <ion-row (click)="editClick(item)">
+                     <ion-col size="9" size-md="6" size-lg="2">
+                        <span style="font-weight: bold;font-size: small;">{{item.name}}</span><br />
+                        <span style="font-size: x-small;">{{item.event}}</span>
+                     </ion-col>
+                      <ion-col size="3" size-md="8" size-lg="2">
+                     <span style="font-size: x-small; ">Slot {{item.slot_type}}</span> 
+                      <br />
+                      <span style="font-size: x-small;">{{item.bookingDate}} </span> 
+                      </ion-col>
+                </ion-row>
+            </ion-grid>
+       
+        }
+    
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+</ion-content>

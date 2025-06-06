@@ -1,0 +1,8 @@
+{
+    "/api":{
+     "target": "https://lightslategrey-fish-417601.hostingersite.com/api/index.php/",
+      "secure": true,
+      "changeOrigin":true,
+      "logLevel":"debug"
+    }
+}
