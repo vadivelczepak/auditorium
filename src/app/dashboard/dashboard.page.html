@@ -1,12 +1,27 @@
+<div style="text-align: center;">
+   <span (click)="upArrow()">
+      <ion-icon slot="start" name="chevron-back"></ion-icon>
+   </span>
+   <span>{{monthName | slice:0:3}} {{currentYear}}</span>
+   <span (click)="downArrow()">
+      <ion-icon slot="start" name="chevron-forward"></ion-icon>
+   </span>
+</div>
 <div class="calendar-grid">
-     @for (wd of weekDays; track weekDays) {
-    <div class="calendar-header" >
-    {{ wd }}
-  </div>
-}
+   @for (wd of weekDays; track weekDays) {
+   <div class="calendar-header">
+      {{ wd }}
+   </div>
+   }
    @for (day of daysInMonth; track daysInMonth) {
    <div class="calendar-date-view">
-      <div [ngStyle]="getStyleForBox(day)" (click)="onDateChange(day)">{{ day.number }}</div>
+      <div [ngStyle]="getStyleForBox(day)" (click)="onDateChange(day)">{{ day.number }}
+         <div>
+            <span style="font-size: large;">.</span>
+            <span style="font-size: large;">.</span>
+         </div>
+
+      </div>
    </div>
    }
 

@@ -14,7 +14,7 @@ import {
 } from '@ionic/angular/standalone';
 //import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { search, add } from 'ionicons/icons';
+import { search, add,chevronBack,chevronForward } from 'ionicons/icons';
 import { ApiService } from '../app.service';
 import { count } from 'rxjs';
 @Component({
@@ -56,7 +56,7 @@ export class DashboardPage implements OnInit {
   calendar: any[] = [];
   obj = {};
   constructor(private datePipe: DatePipe,private router: Router, private location: Location, private apiService: ApiService) {
-    addIcons({ search, add });
+    addIcons({ search, add,chevronBack,chevronForward });
 
   }
   ngOnInit(): void {
@@ -75,7 +75,7 @@ export class DashboardPage implements OnInit {
     location.reload(); // hard refresh only once
   }
    this.getBookingDetails();
-    this.daysInMonth = this.generateDaysValue(6, 2025);
+    this.generateDaysValue(6, 2025);
     //console.log("jun", june2025Days);
   }
 
@@ -156,7 +156,7 @@ export class DashboardPage implements OnInit {
 
     this.numberOfDays = new Date(year, month, 0).getDate();
 
-    this.generateDays(month, year);
+    this.generateDaysValue(month, year);
   }
   generateDays(month: any, year: any): void {
     this.dataSource = [];
@@ -276,7 +276,6 @@ export class DashboardPage implements OnInit {
     //this.messageEvent.emit(object);
   }
   onDateChange(data: any) {
-    debugger;
     localStorage.clear();
     const newValue = data.date;
     var lengthDate = newValue.length - 1;
@@ -314,7 +313,8 @@ generateDaysValue(month:any, year: number): Day[] {
       dayOfWeek: dateObj.getDay(),
     });
   }
-
+  this.daysInMonth = days;
+  this.getBookingDetails();
   return days;
 }
 }
