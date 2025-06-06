@@ -77,7 +77,7 @@ export class AddbookingPage implements OnInit {
   isSubmit = false;
   saveBooking() {
     this.isSubmit = true;
-    if (this.addbookingForm.valid) {
+    if (this.addbookingForm.valid && ((this.currentDate =="1991-01-01" && this.addbookingForm.value["bookingDate"] !="") || this.currentDate !="1991-01-01")  ) {
       this.isSubmit = false;
       var saveObj = {
         "guid": this.Id == "0" ? uuidv4() : this.addbookingForm.value["guid"],
