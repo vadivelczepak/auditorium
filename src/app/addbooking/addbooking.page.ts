@@ -74,6 +74,13 @@ export class AddbookingPage implements OnInit {
 
     this.eventValue = event.detail.value;
   }
+  formatAmount(event: any) {
+    const input = event.target.value.replace(/,/g, ''); // remove commas
+    if (!isNaN(input)) {
+      const formatted = Number(input).toLocaleString('en-US');
+      this.addbookingForm.get('amount')?.setValue(formatted, { emitEvent: false });
+    }
+  }
   isSubmit = false;
   saveBooking() {
     this.isSubmit = true;
@@ -88,7 +95,7 @@ export class AddbookingPage implements OnInit {
         "father": this.addbookingForm.value["father"],
         "mother": this.addbookingForm.value["mother"],
         "payment": this.addbookingForm.value["payment"],
-        "amount": this.addbookingForm.value["amount"],
+        "amount": this.addbookingForm.value["amount"].includes(",")?this.addbookingForm.value["amount"].replace(",","") :this.addbookingForm.value["amount"],
         "address": this.addbookingForm.value["address"],
         "check_box": this.addbookingForm.value["check_box"] ? "1" : "0",
         "status": this.addbookingForm.value["status"],
@@ -118,6 +125,8 @@ export class AddbookingPage implements OnInit {
       var getData = response["data"];
       getData['check_box'] = getData['check_box'] == "1" ? 1 : 0;
       this.addbookingForm.patchValue(getData);
+      const formatted = Number(getData["amount"]).toLocaleString('en-US');
+      this.addbookingForm.get('amount')?.setValue(formatted, { emitEvent: false });
       this.eventValue = this.addbookingForm.controls["event"].value;
 
     });
