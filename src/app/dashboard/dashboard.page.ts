@@ -75,7 +75,7 @@ export class DashboardPage implements OnInit {
     location.reload(); // hard refresh only once
   }
    this.getBookingDetails();
-    this.generateDaysValue(6, 2025);
+    this.generateDaysValue(this.currentMonth, this.currentYear);
     //console.log("jun", june2025Days);
   }
 
