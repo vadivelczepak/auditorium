@@ -1,3 +1,16 @@
+<div class="calendar-grid">
+     @for (wd of weekDays; track weekDays) {
+    <div class="calendar-header" >
+    {{ wd }}
+  </div>
+}
+   @for (day of daysInMonth; track daysInMonth) {
+   <div class="calendar-date-view">
+      <div [ngStyle]="getStyleForBox(day)" (click)="onDateChange(day)">{{ day.number }}</div>
+   </div>
+   }
+
+</div>
 @if(isLoading){
 <div style="text-align: center;margin-top: 60%;">
    <ion-spinner></ion-spinner>
@@ -10,10 +23,33 @@
          <ion-icon name="add"></ion-icon>
       </ion-fab-button>
    </ion-fab>
-   
- <ion-list>
-      <ion-datetime presentation="date" [highlightedDates]="highlightedDates" 
-          (ionChange)="onDateChange($event)"></ion-datetime>
-   </ion-list>
-   
-  
+
+   <!-- <ion-list>
+      <ion-datetime presentation="date" [highlightedDates]="highlightedDates"
+         (ionChange)="onDateChange($event)"></ion-datetime>
+   </ion-list> -->
+
+
+
+   <!-- <div class="calendar-grid">
+     @for (day of daysInMonth; track daysInMonth) {
+  <div
+    class="calendar-day"
+    [ngClass]="getDateClass(day.date)"
+    (click)="selectDate(day.date)"
+  >
+    {{ day.number }}
+     @if(highlightedDates[day.date]){
+    <div class="dots">
+       @for (color of highlightedDates[day['date']];track highlightedDates[day['date']]){
+      <span
+        
+        class="dot"
+        [ngStyle]="{ 'background-color': color }"
+      ></span>
+       }
+    </div>
+   }
+  </div>
+}
+</div> -->

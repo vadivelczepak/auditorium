@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { IonSpinner } from '@ionic/angular/standalone';
 import {
-  IonDatetime, IonContent,
+  IonContent,
   IonFab,
  
-  IonFabButton, IonList,
+  IonFabButton,
   IonIcon,
 } from '@ionic/angular/standalone';
 //import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -22,7 +22,7 @@ import { count } from 'rxjs';
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: true,
-  imports: [CommonModule, IonSpinner, IonList, FormsModule, IonDatetime, IonContent,
+  imports: [CommonModule, IonSpinner, FormsModule, IonContent,
     IonFab,
     IonFabButton,
     IonIcon],
@@ -35,6 +35,7 @@ export class DashboardPage implements OnInit {
   monthName: string = "";
   numberOfDays: number = 0;
   condition = true;
+ 
   highlightedDates = [
     {
       guid: '',
@@ -44,6 +45,12 @@ export class DashboardPage implements OnInit {
     }
 
   ];
+  highlightedDatesValue =[ {
+  '2025-06-10': ['red', 'green', 'blue'],
+  '2025-06-11': ['green'],
+}];
+  daysInMonth:Day[]=[];
+  weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   displayedColumns: string[] = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
   dataSource: any[] = [];
   calendar: any[] = [];
@@ -68,7 +75,8 @@ export class DashboardPage implements OnInit {
     location.reload(); // hard refresh only once
   }
    this.getBookingDetails();
-
+    this.daysInMonth = this.generateDaysValue(6, 2025);
+    //console.log("jun", june2025Days);
   }
 
   getBookingDetails(): void {
@@ -93,16 +101,16 @@ export class DashboardPage implements OnInit {
         var getDetaildataSource = response["data"];
         if (getDetaildataSource.length > 0) {
 
-          this.highlightedDates.forEach((element: any) => {
+           this.daysInMonth.forEach((element: any) => {
+           
             var isFindDate = getDetaildataSource.find((f: any) => f["bookingDate"] == element["date"])
             if (isFindDate != null) {
-              element["guid"] = isFindDate["guid"],
-                element["textColor"] = "black",
-                element["backgroundColor"] = isFindDate["status"] == 'active' ? 'rgb(56, 181, 93)' : isFindDate["status"] == 'closed' ? 'rgb(225, 165, 73)' : isFindDate["status"] == 'completed' ? 'grey' : ""
+                element["guid"] = isFindDate["guid"],
+                element["color"] = "black",
+                element["background-color"] = isFindDate["status"] == 'active' ? 'rgb(56, 181, 93)' : isFindDate["status"] == 'closed' ? 'rgb(225, 165, 73)' : isFindDate["status"] == 'completed' ? 'grey' : ""
             } else {
-
-              element["textColor"] = "black",
-                element["backgroundColor"] = "white";
+                element["background-color"] = "white";
+                 element["color"] = "white"
             }
           });
 
@@ -240,26 +248,14 @@ export class DashboardPage implements OnInit {
   }
 
   getStyleForBox(data: any) {
-
     var obj = {
-      'background-color': "white",
-      'color': "black",
-      'font-size': "10px",
-      'border': "",
-      'cursor': "pointer",
-      'font-weight': "",
-      'border-radius': ""
-
+      'background-color': "",
+      'color': "",
     };
     if (data["background-color"] != null && data["background-color"] != "") {
       obj = {
         'background-color': data["background-color"],
-        'color': "white",
-        'cursor': "pointer",
-        'font-size': "10px",
-        'border': "1px solid black",
-        'font-weight': "bold;",
-        'border-radius': "50%"
+        'color': "black",
       };
     }
     return obj;
@@ -279,16 +275,14 @@ export class DashboardPage implements OnInit {
     }
     //this.messageEvent.emit(object);
   }
-  onDateChange(event: CustomEvent) {
+  onDateChange(data: any) {
     debugger;
     localStorage.clear();
-    const newValue = event.detail.value;
+    const newValue = data.date;
     var lengthDate = newValue.length - 1;
     var getDate = this.datePipe.transform(newValue, 'yyyy-MM-dd');
- 
-    var isFind = this.highlightedDates.find((f: any) => f["date"] == getDate);
-    if (isFind != null && isFind["guid"]!=null &&  isFind["guid"]!="") {
-      this.router.navigate(['layout/addbooking/' + isFind["guid"] + '/' + getDate]);
+    if (data != null && data["guid"]!=null &&  data["guid"]!="") {
+      this.router.navigate(['layout/addbooking/' + data["guid"] + '/' + getDate]);
     } else {
       this.router.navigate(['layout/addbooking/' + 0 + '/' + getDate]);
     }
@@ -300,5 +294,33 @@ export class DashboardPage implements OnInit {
     localStorage.clear();
     this.router.navigate(['layout/addbooking/' + 0 + '/' + date]);
   }
+generateDaysValue(month:any, year: number): Day[] {
+  const days: Day[] = [];
+  // JS months are 0-based internally, so adjust
+  const jsMonth = month - 1;
 
+  // Get number of days in month
+  const daysInMonth = new Date(year, month, 0).getDate();
+
+  for (let dayNum = 1; dayNum <= daysInMonth; dayNum++) {
+    const dateObj = new Date(year, jsMonth, dayNum);
+    const yyyy = dateObj.getFullYear();
+    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(dateObj.getDate()).padStart(2, '0');
+
+    days.push({
+      date: `${yyyy}-${mm}-${dd}`,
+      number: dayNum,
+      dayOfWeek: dateObj.getDay(),
+    });
+  }
+
+  return days;
+}
+}
+
+interface Day {
+  date: string;   // "2025-06-10"
+  number: number; // day number (1-31)
+  dayOfWeek: number; // 0=Sunday, 1=Monday ...
 }
